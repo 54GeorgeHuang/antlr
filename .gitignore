@@ -1,0 +1,7 @@
+*.*
+!*.g4
+!*.tokens
+!*.java
+!*.class
+!.gitignore
+!*.in
