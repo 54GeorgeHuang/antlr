@@ -1,0 +1,59 @@
+grammar Rose;
+
+//parser rules
+token:(ID|BEGIN|DECLARE|ELSE|END|EXIT|FOR|IF|IN|INTEGER|IS|LOOP|PROCEDURE|READ|THEN|WRITE
+		|CONST_INT|COLON|RANGE|SEMICOLON|ADD|MINUS|ASTERISK|SLASH|PERCENT|EQUAL|ANGLE_BRACKETS
+		|GREATER_THAN|GREATER_THAN_OR_EQUAL|LESS_THAN|LESS_THAN_OR_EQUAL|AND|OR|EXCLAMATION
+		|ASSIGNMENT|LEFT_PARENTHESES|RIGHT_PARENTHESES|WHITESPACE|COMMENTS)*;
+
+
+//lexer rules
+COMMENTS: '//'.*?'\n' -> skip;
+WHITESPACE:(' '|'\t'|'\r'|'\n')+ -> skip;
+
+//keywords
+BEGIN: 'begin';
+DECLARE: 'declare';
+ELSE: 'else';
+END: 'end';
+EXIT: 'exit';
+FOR: 'for';
+IF: 'if';
+IN: 'in';
+INTEGER: 'integer';
+IS: 'is';
+LOOP: 'loop';
+PROCEDURE: 'procedure';
+READ: 'read';
+THEN: 'then';
+WRITE: 'write';
+
+//operators
+COLON: ':';
+RANGE: '..';
+SEMICOLON: ';';
+ADD: '+';
+MINUS: '-';
+ASTERISK: '*';
+SLASH: '/';
+PERCENT: '%';
+EQUAL: '=';
+ANGLE_BRACKETS: '<>';
+GREATER_THAN: '>';
+GREATER_THAN_OR_EQUAL: '>=';
+LESS_THAN: '<';
+LESS_THAN_OR_EQUAL: '<=';
+AND: '&&';
+OR: '||';
+EXCLAMATION: '!';
+ASSIGNMENT: ':=';
+LEFT_PARENTHESES: '(';
+RIGHT_PARENTHESES: ')';
+
+//ID & const
+fragment UPPER_LETTER: [A-Z];
+fragment DIGIT: [0-9];
+fragment UNDERSCORE: '_';
+ID:(UPPER_LETTER|UNDERSCORE)(UPPER_LETTER|DIGIT|UNDERSCORE)*;
+
+CONST_INT: '0'|[1-9][0-9]*;
