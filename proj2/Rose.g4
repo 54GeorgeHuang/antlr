@@ -41,7 +41,7 @@ bool_term_: AND bool_factor bool_term_
 	|
 	;
 
-bool_factor: EXCLAMATION bool_primary
+bool_factor: NOT bool_primary
 	| bool_primary
 	;
 bool_primary: arith_expression relation_op arith_expression;
@@ -65,9 +65,9 @@ arith_expression_: ADD arith_term arith_expression_
 	;
 
 arith_term: arith_factor arith_term_;
-arith_term_: ASTERISK arith_factor arith_term_
-	| SLASH arith_factor arith_term_
-	| PERCENT arith_factor arith_term_
+arith_term_: MULTIPLY arith_factor arith_term_
+	| DIVISION arith_factor arith_term_
+	| MOD arith_factor arith_term_
 	|
 	;
 
@@ -107,9 +107,9 @@ RANGE: '..';
 SEMICOLON: ';';
 ADD: '+';
 MINUS: '-';
-ASTERISK: '*';
-SLASH: '/';
-PERCENT: '%';
+MULTIPLY: '*';
+DIVISION: '/';
+MOD: '%';
 EQUAL: '=';
 ANGLE_BRACKETS: '<>';
 GREATER_THAN: '>';
@@ -118,7 +118,7 @@ LESS_THAN: '<';
 LESS_THAN_OR_EQUAL: '<=';
 AND: '&&';
 OR: '||';
-EXCLAMATION: '!';
+NOT: '!';
 ASSIGNMENT: ':=';
 LEFT_PARENTHESES: '(';
 RIGHT_PARENTHESES: ')';

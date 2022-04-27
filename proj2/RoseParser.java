@@ -18,9 +18,9 @@ public class RoseParser extends Parser {
 	public static final int
 		COMMENTS=1, WHITESPACE=2, BEGIN=3, DECLARE=4, ELSE=5, END=6, EXIT=7, FOR=8, 
 		IF=9, IN=10, INTEGER=11, IS=12, LOOP=13, PROCEDURE=14, READ=15, THEN=16, 
-		WRITE=17, COLON=18, RANGE=19, SEMICOLON=20, ADD=21, MINUS=22, ASTERISK=23, 
-		SLASH=24, PERCENT=25, EQUAL=26, ANGLE_BRACKETS=27, GREATER_THAN=28, GREATER_THAN_OR_EQUAL=29, 
-		LESS_THAN=30, LESS_THAN_OR_EQUAL=31, AND=32, OR=33, EXCLAMATION=34, ASSIGNMENT=35, 
+		WRITE=17, COLON=18, RANGE=19, SEMICOLON=20, ADD=21, MINUS=22, MULTIPLY=23, 
+		DIVISION=24, MOD=25, EQUAL=26, ANGLE_BRACKETS=27, GREATER_THAN=28, GREATER_THAN_OR_EQUAL=29, 
+		LESS_THAN=30, LESS_THAN_OR_EQUAL=31, AND=32, OR=33, NOT=34, ASSIGNMENT=35, 
 		LEFT_PARENTHESES=36, RIGHT_PARENTHESES=37, ID=38, CONST_INT=39;
 	public static final int
 		RULE_program = 0, RULE_variables = 1, RULE_variable = 2, RULE_statements = 3, 
@@ -58,9 +58,9 @@ public class RoseParser extends Parser {
 		return new String[] {
 			null, "COMMENTS", "WHITESPACE", "BEGIN", "DECLARE", "ELSE", "END", "EXIT", 
 			"FOR", "IF", "IN", "INTEGER", "IS", "LOOP", "PROCEDURE", "READ", "THEN", 
-			"WRITE", "COLON", "RANGE", "SEMICOLON", "ADD", "MINUS", "ASTERISK", "SLASH", 
-			"PERCENT", "EQUAL", "ANGLE_BRACKETS", "GREATER_THAN", "GREATER_THAN_OR_EQUAL", 
-			"LESS_THAN", "LESS_THAN_OR_EQUAL", "AND", "OR", "EXCLAMATION", "ASSIGNMENT", 
+			"WRITE", "COLON", "RANGE", "SEMICOLON", "ADD", "MINUS", "MULTIPLY", "DIVISION", 
+			"MOD", "EQUAL", "ANGLE_BRACKETS", "GREATER_THAN", "GREATER_THAN_OR_EQUAL", 
+			"LESS_THAN", "LESS_THAN_OR_EQUAL", "AND", "OR", "NOT", "ASSIGNMENT", 
 			"LEFT_PARENTHESES", "RIGHT_PARENTHESES", "ID", "CONST_INT"
 		};
 	}
@@ -1029,7 +1029,7 @@ public class RoseParser extends Parser {
 	}
 
 	public static class Bool_factorContext extends ParserRuleContext {
-		public TerminalNode EXCLAMATION() { return getToken(RoseParser.EXCLAMATION, 0); }
+		public TerminalNode NOT() { return getToken(RoseParser.NOT, 0); }
 		public Bool_primaryContext bool_primary() {
 			return getRuleContext(Bool_primaryContext.class,0);
 		}
@@ -1054,11 +1054,11 @@ public class RoseParser extends Parser {
 			setState(157);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case EXCLAMATION:
+			case NOT:
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(154);
-				match(EXCLAMATION);
+				match(NOT);
 				setState(155);
 				bool_primary();
 				}
@@ -1492,15 +1492,15 @@ public class RoseParser extends Parser {
 	}
 
 	public static class Arith_term_Context extends ParserRuleContext {
-		public TerminalNode ASTERISK() { return getToken(RoseParser.ASTERISK, 0); }
+		public TerminalNode MULTIPLY() { return getToken(RoseParser.MULTIPLY, 0); }
 		public Arith_factorContext arith_factor() {
 			return getRuleContext(Arith_factorContext.class,0);
 		}
 		public Arith_term_Context arith_term_() {
 			return getRuleContext(Arith_term_Context.class,0);
 		}
-		public TerminalNode SLASH() { return getToken(RoseParser.SLASH, 0); }
-		public TerminalNode PERCENT() { return getToken(RoseParser.PERCENT, 0); }
+		public TerminalNode DIVISION() { return getToken(RoseParser.DIVISION, 0); }
+		public TerminalNode MOD() { return getToken(RoseParser.MOD, 0); }
 		public Arith_term_Context(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1522,33 +1522,33 @@ public class RoseParser extends Parser {
 			setState(209);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case ASTERISK:
+			case MULTIPLY:
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(196);
-				match(ASTERISK);
+				match(MULTIPLY);
 				setState(197);
 				arith_factor();
 				setState(198);
 				arith_term_();
 				}
 				break;
-			case SLASH:
+			case DIVISION:
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(200);
-				match(SLASH);
+				match(DIVISION);
 				setState(201);
 				arith_factor();
 				setState(202);
 				arith_term_();
 				}
 				break;
-			case PERCENT:
+			case MOD:
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(204);
-				match(PERCENT);
+				match(MOD);
 				setState(205);
 				arith_factor();
 				setState(206);
