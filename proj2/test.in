@@ -1,0 +1,5 @@
+// A sample Rose program
+procedure EMPTY is
+declare
+begin
+end ;
