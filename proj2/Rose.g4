@@ -2,10 +2,12 @@ grammar Rose;
 
 //parser rules
 program: PROCEDURE ID IS DECLARE variables BEGIN statements END SEMICOLON;
+
 variables: variable variables
 	| 
 	;
 variable: ID COLON INTEGER SEMICOLON;
+
 statements: statement statements
 	|
 	;
@@ -16,28 +18,38 @@ statement: assignment_statement
 	| read_statement
 	| write_statement
 	;
+
 assignment_statement: ID ASSIGNMENT arith_expression SEMICOLON;
+
 if_statement: IF bool_expression THEN statements if_statement_;
 if_statement_: END IF SEMICOLON
-	| ELSE statements END IF SEMICOLON;
+	| ELSE statements END IF SEMICOLON
+	;
+
 for_statement: FOR ID IN arith_expression RANGE arith_expression LOOP statements END LOOP SEMICOLON;
 exit_statement: EXIT SEMICOLON;
 read_statement: READ ID SEMICOLON;
 write_statement: WRITE arith_expression SEMICOLON;
+
 bool_expression: bool_term bool_expression_;
 bool_expression_: OR bool_term bool_expression_
 	|
 	;
+
 bool_term: bool_factor bool_term_;
 bool_term_: AND bool_factor bool_term_
 	|
 	;
+
 bool_factor: EXCLAMATION bool_primary
-	| bool_primary;
+	| bool_primary
+	;
 bool_primary: arith_expression relation_op arith_expression;
+
 relation_op: EQUAL
 	| LESS_THAN relation_op_
-	| GREATER_THAN relation_op__;
+	| GREATER_THAN relation_op__
+	;
 relation_op_: GREATER_THAN
 	| EQUAL
 	|
@@ -45,26 +57,27 @@ relation_op_: GREATER_THAN
 relation_op__: EQUAL
 	|
 	;
+
 arith_expression: arith_term arith_expression_;
 arith_expression_: ADD arith_term arith_expression_
 	| MINUS arith_term arith_expression_
 	|
 	;
+
 arith_term: arith_factor arith_term_;
 arith_term_: ASTERISK arith_factor arith_term_
 	| SLASH arith_factor arith_term_
 	| PERCENT arith_factor arith_term_
 	|
 	;
+
 arith_factor: MINUS arith_primary
-	| arith_primary;
+	| arith_primary
+	;
 arith_primary: CONST_INT
 	| ID
-	| LEFT_PARENTHESES arith_expression RIGHT_PARENTHESES;
-// token:(ID|BEGIN|DECLARE|ELSE|END|EXIT|FOR|IF|IN|INTEGER|IS|LOOP|PROCEDURE|READ|THEN|WRITE
-// 		|CONST_INT|COLON|RANGE|SEMICOLON|ADD|MINUS|ASTERISK|SLASH|PERCENT|EQUAL|ANGLE_BRACKETS
-// 		|GREATER_THAN|GREATER_THAN_OR_EQUAL|LESS_THAN|LESS_THAN_OR_EQUAL|AND|OR|EXCLAMATION
-// 		|ASSIGNMENT|LEFT_PARENTHESES|RIGHT_PARENTHESES|WHITESPACE|COMMENTS)*;
+	| LEFT_PARENTHESES arith_expression RIGHT_PARENTHESES
+	;
 
 
 //lexer rules
