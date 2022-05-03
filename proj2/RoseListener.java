@@ -197,26 +197,6 @@ public interface RoseListener extends ParseTreeListener {
 	 */
 	void exitRelation_op(RoseParser.Relation_opContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link RoseParser#relation_op_}.
-	 * @param ctx the parse tree
-	 */
-	void enterRelation_op_(RoseParser.Relation_op_Context ctx);
-	/**
-	 * Exit a parse tree produced by {@link RoseParser#relation_op_}.
-	 * @param ctx the parse tree
-	 */
-	void exitRelation_op_(RoseParser.Relation_op_Context ctx);
-	/**
-	 * Enter a parse tree produced by {@link RoseParser#relation_op__}.
-	 * @param ctx the parse tree
-	 */
-	void enterRelation_op__(RoseParser.Relation_op__Context ctx);
-	/**
-	 * Exit a parse tree produced by {@link RoseParser#relation_op__}.
-	 * @param ctx the parse tree
-	 */
-	void exitRelation_op__(RoseParser.Relation_op__Context ctx);
-	/**
 	 * Enter a parse tree produced by {@link RoseParser#arith_expression}.
 	 * @param ctx the parse tree
 	 */

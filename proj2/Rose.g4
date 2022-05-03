@@ -47,15 +47,11 @@ bool_factor: NOT bool_primary
 bool_primary: arith_expression relation_op arith_expression;
 
 relation_op: EQUAL
-	| LESS_THAN relation_op_
-	| GREATER_THAN relation_op__
-	;
-relation_op_: GREATER_THAN
-	| EQUAL
-	|
-	;
-relation_op__: EQUAL
-	|
+	| ANGLE_BRACKETS
+	| GREATER_THAN
+	| GREATER_THAN_OR_EQUAL
+	| LESS_THAN
+	| LESS_THAN_OR_EQUAL
 	;
 
 arith_expression: arith_term arith_expression_;
