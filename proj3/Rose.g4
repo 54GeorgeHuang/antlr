@@ -21,7 +21,7 @@ statements [int reg]
 	;
 statement [int reg] returns [int nreg]
 	: assignment_statement[$reg] {$nreg = $assignment_statement.nreg;}
-	| if_statement
+	// | if_statement
 	// | for_statement
 	// | exit_statement
 	| read_statement
