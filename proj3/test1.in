@@ -1,0 +1,11 @@
+// A program to sum 1 to N
+procedure SUM is
+	declare
+		N: integer;
+		S: integer;
+		I: integer;
+
+begin
+	S := S/(I--N);
+	
+end;
