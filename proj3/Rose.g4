@@ -32,7 +32,10 @@ statement [int reg, int label] returns [int nreg, int nlabel]
 		$nreg = $if_statement.nreg; 
 		$nlabel = $if_statement.nlabel;
 	}
-	// | for_statement
+	| for_statement[$reg, $label] {
+		$nreg = $for_statement.nreg;
+		$nlabel = $for_statement.nlabel;
+	}
 	| exit_statement {
 		$nreg = $reg;
 		$nlabel = $label;
@@ -87,7 +90,38 @@ if_statement_ [int reg, int label, int L_to_next, int B_false]
 	} END IF SEMICOLON
 	;
 
-// for_statement: FOR ID IN arith_expression RANGE arith_expression LOOP statements END LOOP SEMICOLON;
+for_statement [int reg, int label] 
+	returns [int nreg, int nlabel, int temp_B_true, int temp_B_false, int temp_L_begin]
+	: FOR ID IN E1=arith_expression[$reg] RANGE {
+		System.out.println("\t" + "la \$t" + $E1.nreg + ", " + $ID.text);
+		System.out.println("\t" + "sw \$t" + $E1.place + ", 0(\$t" + $E1.nreg + ")" );
+		$reg = $E1.nreg-1;
+		$temp_L_begin = $label++;
+		$temp_B_true = $label++;
+		$temp_B_false = $label++;
+		System.out.println("L" + $temp_L_begin + ":");
+		System.out.println("\t" + "la \$t" + $reg + ", " + $ID.text);
+		System.out.println("\t" + "lw \$t" + $reg + ", 0(\$t" + $reg + ")" );
+	} E2=arith_expression[$reg+1] LOOP {
+		System.out.println("\t" + "ble \$t" + $reg + ", \$t" + $E2.place + ", " + "L" + $temp_B_true);
+		$reg = $reg;
+		System.out.println("\t" + "b L" + $temp_B_false);
+		System.out.println("L" + $temp_B_true + ":");
+	}statements[$reg, $label] {
+		$reg = $statements.nreg;
+		System.out.println("\t" + "la \$t" + $reg + ", " + $ID.text);
+		System.out.println("\t" + "lw \$t" + $reg + ", 0(\$t" + $reg + ")" );
+		System.out.println("\t" + "li \$t" + ($reg+1) + ", 1");
+		System.out.println("\t" + "add \$t" + $reg + ", \$t" + $reg + ", \$t" + ($reg+1));
+		System.out.println("\t" + "la \$t" + ($reg+1) + ", " + $ID.text);
+		System.out.println("\t" + "sw \$t" + $reg + ", 0(\$t" + ($reg+1) + ")" );
+		System.out.println("\t" + "b L" + $temp_L_begin);		
+	} END LOOP SEMICOLON {
+		System.out.println("L" + $temp_B_false + ":");
+		$nreg = $reg;
+		$nlabel = $statements.nlabel;
+	};
+
 exit_statement: EXIT SEMICOLON {
 	System.out.println("\t" + "li \$v0, 10");
 	System.out.println("\t" + "syscall");
