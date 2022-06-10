@@ -67,6 +67,36 @@ public interface RoseListener extends ParseTreeListener {
 	 */
 	void exitAssignment_statement(RoseParser.Assignment_statementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link RoseParser#if_statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterIf_statement(RoseParser.If_statementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link RoseParser#if_statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitIf_statement(RoseParser.If_statementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link RoseParser#if_statement_}.
+	 * @param ctx the parse tree
+	 */
+	void enterIf_statement_(RoseParser.If_statement_Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link RoseParser#if_statement_}.
+	 * @param ctx the parse tree
+	 */
+	void exitIf_statement_(RoseParser.If_statement_Context ctx);
+	/**
+	 * Enter a parse tree produced by {@link RoseParser#exit_statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterExit_statement(RoseParser.Exit_statementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link RoseParser#exit_statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitExit_statement(RoseParser.Exit_statementContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link RoseParser#read_statement}.
 	 * @param ctx the parse tree
 	 */
@@ -86,6 +116,76 @@ public interface RoseListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitWrite_statement(RoseParser.Write_statementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link RoseParser#bool_expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterBool_expression(RoseParser.Bool_expressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link RoseParser#bool_expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitBool_expression(RoseParser.Bool_expressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link RoseParser#bool_expression_}.
+	 * @param ctx the parse tree
+	 */
+	void enterBool_expression_(RoseParser.Bool_expression_Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link RoseParser#bool_expression_}.
+	 * @param ctx the parse tree
+	 */
+	void exitBool_expression_(RoseParser.Bool_expression_Context ctx);
+	/**
+	 * Enter a parse tree produced by {@link RoseParser#bool_term}.
+	 * @param ctx the parse tree
+	 */
+	void enterBool_term(RoseParser.Bool_termContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link RoseParser#bool_term}.
+	 * @param ctx the parse tree
+	 */
+	void exitBool_term(RoseParser.Bool_termContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link RoseParser#bool_term_}.
+	 * @param ctx the parse tree
+	 */
+	void enterBool_term_(RoseParser.Bool_term_Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link RoseParser#bool_term_}.
+	 * @param ctx the parse tree
+	 */
+	void exitBool_term_(RoseParser.Bool_term_Context ctx);
+	/**
+	 * Enter a parse tree produced by {@link RoseParser#bool_factor}.
+	 * @param ctx the parse tree
+	 */
+	void enterBool_factor(RoseParser.Bool_factorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link RoseParser#bool_factor}.
+	 * @param ctx the parse tree
+	 */
+	void exitBool_factor(RoseParser.Bool_factorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link RoseParser#bool_primary}.
+	 * @param ctx the parse tree
+	 */
+	void enterBool_primary(RoseParser.Bool_primaryContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link RoseParser#bool_primary}.
+	 * @param ctx the parse tree
+	 */
+	void exitBool_primary(RoseParser.Bool_primaryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link RoseParser#relation_op}.
+	 * @param ctx the parse tree
+	 */
+	void enterRelation_op(RoseParser.Relation_opContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link RoseParser#relation_op}.
+	 * @param ctx the parse tree
+	 */
+	void exitRelation_op(RoseParser.Relation_opContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link RoseParser#arith_expression}.
 	 * @param ctx the parse tree

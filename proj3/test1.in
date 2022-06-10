@@ -6,6 +6,15 @@ procedure SUM is
 		I: integer;
 
 begin
-	S := S/(I--N);
+	read N;
 	
+	if N < 0 then
+		write -1;
+		exit;
+	else
+		S := 0;
+	end if;
+	
+	
+	write S;
 end;
