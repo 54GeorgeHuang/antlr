@@ -1,32 +1,40 @@
 grammar Rose;
 
 //parser rules
-program: PROCEDURE ID IS DECLARE 
-	{System.out.println("\t" + ".data");}
-	variables BEGIN 
-	{System.out.println("\t" + ".text");
-	System.out.println("main:");}
+program: PROCEDURE ID IS DECLARE {
+		System.out.println("\t" + ".data");
+	}
+	variables BEGIN	{
+		System.out.println("\t" + ".text");
+		System.out.println("main:");
+	}
 	statements[0, 1] END SEMICOLON;
 
 variables: variable variables
 	| 
 	;
-variable: ID COLON INTEGER SEMICOLON
-	{System.out.println($ID.text + ": " + ".word 0");}
+variable: ID COLON INTEGER SEMICOLON {
+		System.out.println($ID.text + ": " + ".word 0");
+	}
 	;
 
-statements [int reg, int label] returns [int nreg, int nlabel]
+statements [int reg, int label]
+	returns [int nreg, int nlabel]
 	: statement[$reg, $label] statements[$statement.nreg, $statement.nlabel] {
-		$nreg = $statements.nreg; $nlabel = $statements.nlabel;
+		$nreg = $statements.nreg;
+		$nlabel = $statements.nlabel;
 	}
 	| {
-		// System.out.println("no more statements, reg = \$t" + $reg); 
-		$nreg = $reg; $nlabel = $label;
+		$nreg = $reg;
+		$nlabel = $label;
 	}
 	;
-statement [int reg, int label] returns [int nreg, int nlabel]
+
+statement [int reg, int label]
+	returns [int nreg, int nlabel]
 	: assignment_statement[$reg] {
-		$nreg = $assignment_statement.nreg; $nlabel = $label;
+		$nreg = $assignment_statement.nreg;
+		$nlabel = $label;
 	}
 	| if_statement[$reg, $label] {
 		$nreg = $if_statement.nreg; 
@@ -50,11 +58,13 @@ statement [int reg, int label] returns [int nreg, int nlabel]
 	}
 	;
 
-assignment_statement [int reg] returns [int nreg]
-	: ID ASSIGNMENT arith_expression[$reg] SEMICOLON
-	{System.out.println("\t" + "la \$t" + $arith_expression.nreg + ", " + $ID.text);
-	System.out.println("\t" + "sw \$t" + $arith_expression.place + ", " + "0(\$t" + $arith_expression.nreg +")" );
-	$nreg = $arith_expression.nreg - 1;}
+assignment_statement [int reg] 
+	returns [int nreg]
+	: ID ASSIGNMENT arith_expression[$reg] SEMICOLON {
+		System.out.println("\t" + "la \$t" + $arith_expression.nreg + ", " + $ID.text);
+		System.out.println("\t" + "sw \$t" + $arith_expression.place + ", " + "0(\$t" + $arith_expression.nreg +")" );
+		$nreg = $arith_expression.nreg - 1;
+	}
 	;
 
 if_statement [int reg, int label] 
@@ -123,19 +133,22 @@ for_statement [int reg, int label]
 	};
 
 exit_statement: EXIT SEMICOLON {
-	System.out.println("\t" + "li \$v0, 10");
-	System.out.println("\t" + "syscall");
-	};
-read_statement [int reg] returns [int nreg]
-	: READ ID SEMICOLON {
-	System.out.println("\t" + "li \$v0, 5");
-	System.out.println("\t" + "syscall");
-	System.out.println("\t" + "la \$t" + $reg + ", " + $ID.text);
-	System.out.println("\t" + "sw \$v0, 0(\$t" + $reg + ")");
-	$nreg = $reg;
+		System.out.println("\t" + "li \$v0, 10");
+		System.out.println("\t" + "syscall");
 	};
 
-write_statement [int reg] returns [int nreg]
+read_statement [int reg]
+	returns [int nreg]
+	: READ ID SEMICOLON {
+		System.out.println("\t" + "li \$v0, 5");
+		System.out.println("\t" + "syscall");
+		System.out.println("\t" + "la \$t" + $reg + ", " + $ID.text);
+		System.out.println("\t" + "sw \$v0, 0(\$t" + $reg + ")");
+		$nreg = $reg;
+	};
+
+write_statement [int reg] 
+	returns [int nreg]
 	: WRITE arith_expression[$reg] SEMICOLON {
 		System.out.println("\t" + "move \$a0, \$t" + $arith_expression.place);
 		System.out.println("\t" + "li \$v0, 1");
@@ -146,8 +159,7 @@ write_statement [int reg] returns [int nreg]
 bool_expression [int reg, int B_true, int B_false, int label] 
 	returns [int nreg, int nlabel]
  	: bool_term[$reg, $B_true, $B_false, $label] 
-	bool_expression_[$bool_term.nreg, $B_true, $B_false, $bool_term.nlabel, $bool_term.n_E1_place, $bool_term.n_E2_place, $bool_term.n_operation, $bool_term.n_f_not]
-	{
+	bool_expression_[$bool_term.nreg, $B_true, $B_false, $bool_term.nlabel, $bool_term.n_E1_place, $bool_term.n_E2_place, $bool_term.n_operation, $bool_term.n_f_not] {
 		$nreg = $bool_expression_.nreg;
 		$nlabel = $bool_expression_.nlabel;
 	};
@@ -157,12 +169,12 @@ bool_expression_ [int reg, int B_true, int B_false, int label, int E1_place, int
 	: {
 		$temp_B_false = $label;
 		$temp_B_true = $B_true;
-		if ($f_not == 1)
-		{
+		if ($f_not == 1) {
 			$temp_B_true = $label;
 			$temp_B_false = $B_true;
 		}
 		$label++;
+
 		switch ($operation){
 		case 0:
 			System.out.println("\t" + "beq \$t" + $E1_place + ", \$t" + $E2_place + ", " + "L" + $temp_B_true);
@@ -193,15 +205,14 @@ bool_expression_ [int reg, int B_true, int B_false, int label, int E1_place, int
 	}
 	bool_term[$reg, $B_true, $B_false, $label] 
 	bool_expression_[$bool_term.nreg, $B_true, $B_false, $bool_term.nlabel, $bool_term.n_E1_place, $bool_term.n_E2_place, $bool_term.n_operation, $bool_term.n_f_not]
-	| 
-	{
+	| {
 		$temp_B_false = $B_false;
 		$temp_B_true = $B_true;
-		if ($f_not == 1)
-		{
+		if ($f_not == 1) {
 			$temp_B_true = $B_false;
 			$temp_B_false = $B_true;
 		}
+
 		switch ($operation){
 		case 0:
 			System.out.println("\t" + "beq \$t" + $E1_place + ", \$t" + $E2_place + ", " + "L" + $temp_B_true);
@@ -248,12 +259,12 @@ bool_term_ [int reg, int B_true, int B_false, int label, int E1_place, int E2_pl
 	: {
 		$temp_B_true = $label;
 		$temp_B_false = $B_false;
-		if ($f_not == 1)
-		{
+		if ($f_not == 1) {
 			$temp_B_true = $B_false;
 			$temp_B_false = $label;
 		}
 		$label++;
+
 		switch ($operation){
 			case 0:
 				System.out.println("\t" + "beq \$t" + $E1_place + ", \$t" + $E2_place + ", " + "L" + $temp_B_true);
@@ -312,7 +323,8 @@ bool_factor [int reg]
 	}
 	;
 
-bool_primary [int reg] returns [int nreg, int n_E1_place, int n_E2_place, int n_operation]
+bool_primary [int reg] 
+	returns [int nreg, int n_E1_place, int n_E2_place, int n_operation]
 	: E1=arith_expression[$reg] relation_op E2=arith_expression[$E1.nreg] {
 		$nreg = $E2.nreg; 
 		$n_E1_place = $E1.place; 
@@ -330,64 +342,96 @@ relation_op returns [int operation]
 	| LESS_THAN_OR_EQUAL {$operation = 5;}
 	;
 
-arith_expression [int reg] returns [int nreg, int place]
-	: arith_term[$reg] arith_expression_[$arith_term.nreg, $arith_term.place]
-	{$nreg = $arith_expression_.nreg; $place = $arith_expression_.place;};
+arith_expression [int reg] 
+	returns [int nreg, int place]
+	: arith_term[$reg] arith_expression_[$arith_term.nreg, $arith_term.place] {
+		$nreg = $arith_expression_.nreg;
+		$place = $arith_expression_.place;
+	}
+	;
 	
-arith_expression_ [int reg, int notMyPlace] returns [int nreg, int place]
-	: ADD arith_term[$reg] 
-	{System.out.println("\t" + "add \$t" + $notMyPlace + ", \$t" + $notMyPlace + ", \$t" + $arith_term.place);
-	$place = $notMyPlace; $nreg = $arith_term.nreg-1;}
-	arith_expression_[$nreg, $place]
+arith_expression_ [int reg, int notMyPlace]
+	returns [int nreg, int place]
+	: ADD arith_term[$reg] {
+		System.out.println("\t" + "add \$t" + $notMyPlace + ", \$t" + $notMyPlace + ", \$t" + $arith_term.place);
+		$place = $notMyPlace; $nreg = $arith_term.nreg-1;
+	} arith_expression_[$nreg, $place]
 
-	| MINUS arith_term[$reg] 
-	{System.out.println("\t" + "sub \$t" + $notMyPlace + ", \$t" + $notMyPlace + ", \$t" + $arith_term.place);
-	$place = $notMyPlace; $nreg = $arith_term.nreg-1;}
-	arith_expression_[$nreg, $place]
+	| MINUS arith_term[$reg] {
+		System.out.println("\t" + "sub \$t" + $notMyPlace + ", \$t" + $notMyPlace + ", \$t" + $arith_term.place);
+		$place = $notMyPlace; 
+		$nreg = $arith_term.nreg-1;
+	} arith_expression_[$nreg, $place]
 
-	| {$nreg = $reg; $place = $notMyPlace;}
+	| {
+		$nreg = $reg; 
+		$place = $notMyPlace;
+	}
 	;
 
-arith_term [int reg] returns [int nreg, int place]
-	: arith_factor[$reg] arith_term_[$arith_factor.nreg, $arith_factor.place]
-	{$nreg = $arith_term_.nreg; $place = $arith_term_.place;};
+arith_term [int reg] 
+	returns [int nreg, int place]
+	: arith_factor[$reg] arith_term_[$arith_factor.nreg, $arith_factor.place] {
+		$nreg = $arith_term_.nreg; 
+		$place = $arith_term_.place;
+	};
 
-arith_term_ [int reg, int notMyPlace] returns [int nreg, int place]
-	: MULTIPLY arith_factor[$reg] 
-	{System.out.println("\t" + "mul \$t" + $notMyPlace + ", \$t" + $notMyPlace + ", \$t" + $arith_factor.place);
-	$place = $notMyPlace; $nreg = $arith_factor.nreg-1;}
-	arith_term_[$nreg, $place]
+arith_term_ [int reg, int notMyPlace] 
+	returns [int nreg, int place]
+	: MULTIPLY arith_factor[$reg] {
+		System.out.println("\t" + "mul \$t" + $notMyPlace + ", \$t" + $notMyPlace + ", \$t" + $arith_factor.place);
+		$place = $notMyPlace; 
+		$nreg = $arith_factor.nreg-1;
+	} arith_term_[$nreg, $place]
 
-	| DIVISION arith_factor[$reg] 
-	{System.out.println("\t" + "div \$t" + $notMyPlace + ", \$t" + $notMyPlace + ", \$t" + $arith_factor.place);
-	$place = $notMyPlace; $nreg = $arith_factor.nreg-1;}
-	arith_term_[$nreg, $place]
+	| DIVISION arith_factor[$reg] {
+		System.out.println("\t" + "div \$t" + $notMyPlace + ", \$t" + $notMyPlace + ", \$t" + $arith_factor.place);
+		$place = $notMyPlace; 
+		$nreg = $arith_factor.nreg-1;
+	} arith_term_[$nreg, $place]
 
-	| MOD arith_factor[$reg] 
-	{System.out.println("\t" + "rem \$t" + $notMyPlace + ", \$t" + $notMyPlace + ", \$t" + $arith_factor.place);
-	$place = $notMyPlace; $nreg = $arith_factor.nreg-1;}
-	arith_term_[$nreg, $place]
+	| MOD arith_factor[$reg] {
+		System.out.println("\t" + "rem \$t" + $notMyPlace + ", \$t" + $notMyPlace + ", \$t" + $arith_factor.place);
+		$place = $notMyPlace;
+		$nreg = $arith_factor.nreg-1;
+	} arith_term_[$nreg, $place]
 
-	| {$nreg = $reg; $place = $notMyPlace;}
+	| {
+		$nreg = $reg;
+		$place = $notMyPlace;
+	}
 	;
 
-arith_factor [int reg] returns [int nreg, int place]
-	: MINUS arith_primary[$reg]
-	{System.out.println("\t" + "neg \$t" + $arith_primary.place + ", \$t" + $arith_primary.place);
-	$place = $arith_primary.place; $nreg = $arith_primary.nreg;}
-	| arith_primary[$reg] {$place = $arith_primary.place; $nreg = $arith_primary.nreg;}
+arith_factor [int reg] 
+	returns [int nreg, int place]
+	: MINUS arith_primary[$reg]	{
+		System.out.println("\t" + "neg \$t" + $arith_primary.place + ", \$t" + $arith_primary.place);
+		$place = $arith_primary.place;
+		$nreg = $arith_primary.nreg;
+	}
+	| arith_primary[$reg] {
+		$place = $arith_primary.place;
+		$nreg = $arith_primary.nreg;
+	}
 	;
 
-arith_primary [int reg] returns [int nreg, int place]
-	: CONST_INT
-	{System.out.println("\t" + "li \$t" + $reg + ", " + $CONST_INT.text);
-	$place = $reg; $nreg = $reg + 1;}
-	| ID
-	{System.out.println("\t" + "la \$t" + $reg + ", " + $ID.text);
-	System.out.println("\t" + "lw \$t" + $reg + ", " + "0(\$t" + $reg + ")");
-	$place = $reg; $nreg = $reg+1;}
-	| LEFT_PARENTHESES arith_expression[$reg] RIGHT_PARENTHESES
-	{$place = $arith_expression.place; $nreg = $arith_expression.nreg;}
+arith_primary [int reg] 
+	returns [int nreg, int place]
+	: CONST_INT {
+		System.out.println("\t" + "li \$t" + $reg + ", " + $CONST_INT.text);
+		$place = $reg; 
+		$nreg = $reg + 1;
+	}
+	| ID {
+		System.out.println("\t" + "la \$t" + $reg + ", " + $ID.text);
+		System.out.println("\t" + "lw \$t" + $reg + ", " + "0(\$t" + $reg + ")");
+		$place = $reg; 
+		$nreg = $reg+1;
+	}
+	| LEFT_PARENTHESES arith_expression[$reg] RIGHT_PARENTHESES	{
+		$place = $arith_expression.place; 
+		$nreg = $arith_expression.nreg;
+	}
 	;
 
 

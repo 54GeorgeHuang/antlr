@@ -155,13 +155,17 @@ public class RoseParser extends Parser {
 			match(IS);
 			setState(53);
 			match(DECLARE);
-			System.out.println("\t" + ".data");
+
+					System.out.println("\t" + ".data");
+				
 			setState(55);
 			variables();
 			setState(56);
 			match(BEGIN);
-			System.out.println("\t" + ".text");
-				System.out.println("main:");
+
+					System.out.println("\t" + ".text");
+					System.out.println("main:");
+				
 			setState(58);
 			statements(0, 1);
 			setState(59);
@@ -272,7 +276,9 @@ public class RoseParser extends Parser {
 			match(INTEGER);
 			setState(71);
 			match(SEMICOLON);
-			System.out.println((((VariableContext)_localctx).ID!=null?((VariableContext)_localctx).ID.getText():null) + ": " + ".word 0");
+
+					System.out.println((((VariableContext)_localctx).ID!=null?((VariableContext)_localctx).ID.getText():null) + ": " + ".word 0");
+				
 			}
 		}
 		catch (RecognitionException re) {
@@ -336,7 +342,8 @@ public class RoseParser extends Parser {
 				setState(75);
 				((StatementsContext)_localctx).statements = statements(((StatementsContext)_localctx).statement.nreg, ((StatementsContext)_localctx).statement.nlabel);
 
-						((StatementsContext)_localctx).nreg =  ((StatementsContext)_localctx).statements.nreg; ((StatementsContext)_localctx).nlabel =  ((StatementsContext)_localctx).statements.nlabel;
+						((StatementsContext)_localctx).nreg =  ((StatementsContext)_localctx).statements.nreg;
+						((StatementsContext)_localctx).nlabel =  ((StatementsContext)_localctx).statements.nlabel;
 					
 				}
 				break;
@@ -345,8 +352,8 @@ public class RoseParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 
-						// System.out.println("no more statements, reg = $t" + _localctx.reg); 
-						((StatementsContext)_localctx).nreg =  _localctx.reg; ((StatementsContext)_localctx).nlabel =  _localctx.label;
+						((StatementsContext)_localctx).nreg =  _localctx.reg;
+						((StatementsContext)_localctx).nlabel =  _localctx.label;
 					
 				}
 				break;
@@ -423,7 +430,8 @@ public class RoseParser extends Parser {
 				setState(81);
 				((StatementContext)_localctx).assignment_statement = assignment_statement(_localctx.reg);
 
-						((StatementContext)_localctx).nreg =  ((StatementContext)_localctx).assignment_statement.nreg; ((StatementContext)_localctx).nlabel =  _localctx.label;
+						((StatementContext)_localctx).nreg =  ((StatementContext)_localctx).assignment_statement.nreg;
+						((StatementContext)_localctx).nlabel =  _localctx.label;
 					
 				}
 				break;
@@ -538,9 +546,11 @@ public class RoseParser extends Parser {
 			((Assignment_statementContext)_localctx).arith_expression = arith_expression(_localctx.reg);
 			setState(104);
 			match(SEMICOLON);
-			System.out.println("\t" + "la $t" + ((Assignment_statementContext)_localctx).arith_expression.nreg + ", " + (((Assignment_statementContext)_localctx).ID!=null?((Assignment_statementContext)_localctx).ID.getText():null));
-				System.out.println("\t" + "sw $t" + ((Assignment_statementContext)_localctx).arith_expression.place + ", " + "0($t" + ((Assignment_statementContext)_localctx).arith_expression.nreg +")" );
-				((Assignment_statementContext)_localctx).nreg =  ((Assignment_statementContext)_localctx).arith_expression.nreg - 1;
+
+					System.out.println("\t" + "la $t" + ((Assignment_statementContext)_localctx).arith_expression.nreg + ", " + (((Assignment_statementContext)_localctx).ID!=null?((Assignment_statementContext)_localctx).ID.getText():null));
+					System.out.println("\t" + "sw $t" + ((Assignment_statementContext)_localctx).arith_expression.place + ", " + "0($t" + ((Assignment_statementContext)_localctx).arith_expression.nreg +")" );
+					((Assignment_statementContext)_localctx).nreg =  ((Assignment_statementContext)_localctx).arith_expression.nreg - 1;
+				
 			}
 		}
 		catch (RecognitionException re) {
@@ -879,8 +889,8 @@ public class RoseParser extends Parser {
 			setState(147);
 			match(SEMICOLON);
 
-				System.out.println("\t" + "li $v0, 10");
-				System.out.println("\t" + "syscall");
+					System.out.println("\t" + "li $v0, 10");
+					System.out.println("\t" + "syscall");
 				
 			}
 		}
@@ -931,11 +941,11 @@ public class RoseParser extends Parser {
 			setState(152);
 			match(SEMICOLON);
 
-				System.out.println("\t" + "li $v0, 5");
-				System.out.println("\t" + "syscall");
-				System.out.println("\t" + "la $t" + _localctx.reg + ", " + (((Read_statementContext)_localctx).ID!=null?((Read_statementContext)_localctx).ID.getText():null));
-				System.out.println("\t" + "sw $v0, 0($t" + _localctx.reg + ")");
-				((Read_statementContext)_localctx).nreg =  _localctx.reg;
+					System.out.println("\t" + "li $v0, 5");
+					System.out.println("\t" + "syscall");
+					System.out.println("\t" + "la $t" + _localctx.reg + ", " + (((Read_statementContext)_localctx).ID!=null?((Read_statementContext)_localctx).ID.getText():null));
+					System.out.println("\t" + "sw $v0, 0($t" + _localctx.reg + ")");
+					((Read_statementContext)_localctx).nreg =  _localctx.reg;
 				
 			}
 		}
@@ -1124,12 +1134,12 @@ public class RoseParser extends Parser {
 
 						((Bool_expression_Context)_localctx).temp_B_false =  _localctx.label;
 						((Bool_expression_Context)_localctx).temp_B_true =  _localctx.B_true;
-						if (_localctx.f_not == 1)
-						{
+						if (_localctx.f_not == 1) {
 							((Bool_expression_Context)_localctx).temp_B_true =  _localctx.label;
 							((Bool_expression_Context)_localctx).temp_B_false =  _localctx.B_true;
 						}
 						_localctx.label++;
+
 						switch (_localctx.operation){
 						case 0:
 							System.out.println("\t" + "beq $t" + _localctx.E1_place + ", $t" + _localctx.E2_place + ", " + "L" + _localctx.temp_B_true);
@@ -1172,11 +1182,11 @@ public class RoseParser extends Parser {
 
 						((Bool_expression_Context)_localctx).temp_B_false =  _localctx.B_false;
 						((Bool_expression_Context)_localctx).temp_B_true =  _localctx.B_true;
-						if (_localctx.f_not == 1)
-						{
+						if (_localctx.f_not == 1) {
 							((Bool_expression_Context)_localctx).temp_B_true =  _localctx.B_false;
 							((Bool_expression_Context)_localctx).temp_B_false =  _localctx.B_true;
 						}
+
 						switch (_localctx.operation){
 						case 0:
 							System.out.println("\t" + "beq $t" + _localctx.E1_place + ", $t" + _localctx.E2_place + ", " + "L" + _localctx.temp_B_true);
@@ -1352,12 +1362,12 @@ public class RoseParser extends Parser {
 
 						((Bool_term_Context)_localctx).temp_B_true =  _localctx.label;
 						((Bool_term_Context)_localctx).temp_B_false =  _localctx.B_false;
-						if (_localctx.f_not == 1)
-						{
+						if (_localctx.f_not == 1) {
 							((Bool_term_Context)_localctx).temp_B_true =  _localctx.B_false;
 							((Bool_term_Context)_localctx).temp_B_false =  _localctx.label;
 						}
 						_localctx.label++;
+
 						switch (_localctx.operation){
 							case 0:
 								System.out.println("\t" + "beq $t" + _localctx.E1_place + ", $t" + _localctx.E2_place + ", " + "L" + _localctx.temp_B_true);
@@ -1701,7 +1711,10 @@ public class RoseParser extends Parser {
 			((Arith_expressionContext)_localctx).arith_term = arith_term(_localctx.reg);
 			setState(215);
 			((Arith_expressionContext)_localctx).arith_expression_ = arith_expression_(((Arith_expressionContext)_localctx).arith_term.nreg, ((Arith_expressionContext)_localctx).arith_term.place);
-			((Arith_expressionContext)_localctx).nreg =  ((Arith_expressionContext)_localctx).arith_expression_.nreg; ((Arith_expressionContext)_localctx).place =  ((Arith_expressionContext)_localctx).arith_expression_.place;
+
+					((Arith_expressionContext)_localctx).nreg =  ((Arith_expressionContext)_localctx).arith_expression_.nreg;
+					((Arith_expressionContext)_localctx).place =  ((Arith_expressionContext)_localctx).arith_expression_.place;
+				
 			}
 		}
 		catch (RecognitionException re) {
@@ -1760,8 +1773,10 @@ public class RoseParser extends Parser {
 				match(ADD);
 				setState(219);
 				((Arith_expression_Context)_localctx).arith_term = arith_term(_localctx.reg);
-				System.out.println("\t" + "add $t" + _localctx.notMyPlace + ", $t" + _localctx.notMyPlace + ", $t" + ((Arith_expression_Context)_localctx).arith_term.place);
-					((Arith_expression_Context)_localctx).place =  _localctx.notMyPlace; ((Arith_expression_Context)_localctx).nreg =  ((Arith_expression_Context)_localctx).arith_term.nreg-1;
+
+						System.out.println("\t" + "add $t" + _localctx.notMyPlace + ", $t" + _localctx.notMyPlace + ", $t" + ((Arith_expression_Context)_localctx).arith_term.place);
+						((Arith_expression_Context)_localctx).place =  _localctx.notMyPlace; ((Arith_expression_Context)_localctx).nreg =  ((Arith_expression_Context)_localctx).arith_term.nreg-1;
+					
 				setState(221);
 				arith_expression_(_localctx.nreg, _localctx.place);
 				}
@@ -1773,8 +1788,11 @@ public class RoseParser extends Parser {
 				match(MINUS);
 				setState(224);
 				((Arith_expression_Context)_localctx).arith_term = arith_term(_localctx.reg);
-				System.out.println("\t" + "sub $t" + _localctx.notMyPlace + ", $t" + _localctx.notMyPlace + ", $t" + ((Arith_expression_Context)_localctx).arith_term.place);
-					((Arith_expression_Context)_localctx).place =  _localctx.notMyPlace; ((Arith_expression_Context)_localctx).nreg =  ((Arith_expression_Context)_localctx).arith_term.nreg-1;
+
+						System.out.println("\t" + "sub $t" + _localctx.notMyPlace + ", $t" + _localctx.notMyPlace + ", $t" + ((Arith_expression_Context)_localctx).arith_term.place);
+						((Arith_expression_Context)_localctx).place =  _localctx.notMyPlace; 
+						((Arith_expression_Context)_localctx).nreg =  ((Arith_expression_Context)_localctx).arith_term.nreg-1;
+					
 				setState(226);
 				arith_expression_(_localctx.nreg, _localctx.place);
 				}
@@ -1794,7 +1812,10 @@ public class RoseParser extends Parser {
 			case RIGHT_PARENTHESES:
 				enterOuterAlt(_localctx, 3);
 				{
-				((Arith_expression_Context)_localctx).nreg =  _localctx.reg; ((Arith_expression_Context)_localctx).place =  _localctx.notMyPlace;
+
+						((Arith_expression_Context)_localctx).nreg =  _localctx.reg; 
+						((Arith_expression_Context)_localctx).place =  _localctx.notMyPlace;
+					
 				}
 				break;
 			default:
@@ -1850,7 +1871,10 @@ public class RoseParser extends Parser {
 			((Arith_termContext)_localctx).arith_factor = arith_factor(_localctx.reg);
 			setState(232);
 			((Arith_termContext)_localctx).arith_term_ = arith_term_(((Arith_termContext)_localctx).arith_factor.nreg, ((Arith_termContext)_localctx).arith_factor.place);
-			((Arith_termContext)_localctx).nreg =  ((Arith_termContext)_localctx).arith_term_.nreg; ((Arith_termContext)_localctx).place =  ((Arith_termContext)_localctx).arith_term_.place;
+
+					((Arith_termContext)_localctx).nreg =  ((Arith_termContext)_localctx).arith_term_.nreg; 
+					((Arith_termContext)_localctx).place =  ((Arith_termContext)_localctx).arith_term_.place;
+				
 			}
 		}
 		catch (RecognitionException re) {
@@ -1910,8 +1934,11 @@ public class RoseParser extends Parser {
 				match(MULTIPLY);
 				setState(236);
 				((Arith_term_Context)_localctx).arith_factor = arith_factor(_localctx.reg);
-				System.out.println("\t" + "mul $t" + _localctx.notMyPlace + ", $t" + _localctx.notMyPlace + ", $t" + ((Arith_term_Context)_localctx).arith_factor.place);
-					((Arith_term_Context)_localctx).place =  _localctx.notMyPlace; ((Arith_term_Context)_localctx).nreg =  ((Arith_term_Context)_localctx).arith_factor.nreg-1;
+
+						System.out.println("\t" + "mul $t" + _localctx.notMyPlace + ", $t" + _localctx.notMyPlace + ", $t" + ((Arith_term_Context)_localctx).arith_factor.place);
+						((Arith_term_Context)_localctx).place =  _localctx.notMyPlace; 
+						((Arith_term_Context)_localctx).nreg =  ((Arith_term_Context)_localctx).arith_factor.nreg-1;
+					
 				setState(238);
 				arith_term_(_localctx.nreg, _localctx.place);
 				}
@@ -1923,8 +1950,11 @@ public class RoseParser extends Parser {
 				match(DIVISION);
 				setState(241);
 				((Arith_term_Context)_localctx).arith_factor = arith_factor(_localctx.reg);
-				System.out.println("\t" + "div $t" + _localctx.notMyPlace + ", $t" + _localctx.notMyPlace + ", $t" + ((Arith_term_Context)_localctx).arith_factor.place);
-					((Arith_term_Context)_localctx).place =  _localctx.notMyPlace; ((Arith_term_Context)_localctx).nreg =  ((Arith_term_Context)_localctx).arith_factor.nreg-1;
+
+						System.out.println("\t" + "div $t" + _localctx.notMyPlace + ", $t" + _localctx.notMyPlace + ", $t" + ((Arith_term_Context)_localctx).arith_factor.place);
+						((Arith_term_Context)_localctx).place =  _localctx.notMyPlace; 
+						((Arith_term_Context)_localctx).nreg =  ((Arith_term_Context)_localctx).arith_factor.nreg-1;
+					
 				setState(243);
 				arith_term_(_localctx.nreg, _localctx.place);
 				}
@@ -1936,8 +1966,11 @@ public class RoseParser extends Parser {
 				match(MOD);
 				setState(246);
 				((Arith_term_Context)_localctx).arith_factor = arith_factor(_localctx.reg);
-				System.out.println("\t" + "rem $t" + _localctx.notMyPlace + ", $t" + _localctx.notMyPlace + ", $t" + ((Arith_term_Context)_localctx).arith_factor.place);
-					((Arith_term_Context)_localctx).place =  _localctx.notMyPlace; ((Arith_term_Context)_localctx).nreg =  ((Arith_term_Context)_localctx).arith_factor.nreg-1;
+
+						System.out.println("\t" + "rem $t" + _localctx.notMyPlace + ", $t" + _localctx.notMyPlace + ", $t" + ((Arith_term_Context)_localctx).arith_factor.place);
+						((Arith_term_Context)_localctx).place =  _localctx.notMyPlace;
+						((Arith_term_Context)_localctx).nreg =  ((Arith_term_Context)_localctx).arith_factor.nreg-1;
+					
 				setState(248);
 				arith_term_(_localctx.nreg, _localctx.place);
 				}
@@ -1959,7 +1992,10 @@ public class RoseParser extends Parser {
 			case RIGHT_PARENTHESES:
 				enterOuterAlt(_localctx, 4);
 				{
-				((Arith_term_Context)_localctx).nreg =  _localctx.reg; ((Arith_term_Context)_localctx).place =  _localctx.notMyPlace;
+
+						((Arith_term_Context)_localctx).nreg =  _localctx.reg;
+						((Arith_term_Context)_localctx).place =  _localctx.notMyPlace;
+					
 				}
 				break;
 			default:
@@ -2016,8 +2052,11 @@ public class RoseParser extends Parser {
 				match(MINUS);
 				setState(254);
 				((Arith_factorContext)_localctx).arith_primary = arith_primary(_localctx.reg);
-				System.out.println("\t" + "neg $t" + ((Arith_factorContext)_localctx).arith_primary.place + ", $t" + ((Arith_factorContext)_localctx).arith_primary.place);
-					((Arith_factorContext)_localctx).place =  ((Arith_factorContext)_localctx).arith_primary.place; ((Arith_factorContext)_localctx).nreg =  ((Arith_factorContext)_localctx).arith_primary.nreg;
+
+						System.out.println("\t" + "neg $t" + ((Arith_factorContext)_localctx).arith_primary.place + ", $t" + ((Arith_factorContext)_localctx).arith_primary.place);
+						((Arith_factorContext)_localctx).place =  ((Arith_factorContext)_localctx).arith_primary.place;
+						((Arith_factorContext)_localctx).nreg =  ((Arith_factorContext)_localctx).arith_primary.nreg;
+					
 				}
 				break;
 			case LEFT_PARENTHESES:
@@ -2027,7 +2066,10 @@ public class RoseParser extends Parser {
 				{
 				setState(257);
 				((Arith_factorContext)_localctx).arith_primary = arith_primary(_localctx.reg);
-				((Arith_factorContext)_localctx).place =  ((Arith_factorContext)_localctx).arith_primary.place; ((Arith_factorContext)_localctx).nreg =  ((Arith_factorContext)_localctx).arith_primary.nreg;
+
+						((Arith_factorContext)_localctx).place =  ((Arith_factorContext)_localctx).arith_primary.place;
+						((Arith_factorContext)_localctx).nreg =  ((Arith_factorContext)_localctx).arith_primary.nreg;
+					
 				}
 				break;
 			default:
@@ -2087,8 +2129,11 @@ public class RoseParser extends Parser {
 				{
 				setState(262);
 				((Arith_primaryContext)_localctx).CONST_INT = match(CONST_INT);
-				System.out.println("\t" + "li $t" + _localctx.reg + ", " + (((Arith_primaryContext)_localctx).CONST_INT!=null?((Arith_primaryContext)_localctx).CONST_INT.getText():null));
-					((Arith_primaryContext)_localctx).place =  _localctx.reg; ((Arith_primaryContext)_localctx).nreg =  _localctx.reg + 1;
+
+						System.out.println("\t" + "li $t" + _localctx.reg + ", " + (((Arith_primaryContext)_localctx).CONST_INT!=null?((Arith_primaryContext)_localctx).CONST_INT.getText():null));
+						((Arith_primaryContext)_localctx).place =  _localctx.reg; 
+						((Arith_primaryContext)_localctx).nreg =  _localctx.reg + 1;
+					
 				}
 				break;
 			case ID:
@@ -2096,9 +2141,12 @@ public class RoseParser extends Parser {
 				{
 				setState(264);
 				((Arith_primaryContext)_localctx).ID = match(ID);
-				System.out.println("\t" + "la $t" + _localctx.reg + ", " + (((Arith_primaryContext)_localctx).ID!=null?((Arith_primaryContext)_localctx).ID.getText():null));
-					System.out.println("\t" + "lw $t" + _localctx.reg + ", " + "0($t" + _localctx.reg + ")");
-					((Arith_primaryContext)_localctx).place =  _localctx.reg; ((Arith_primaryContext)_localctx).nreg =  _localctx.reg+1;
+
+						System.out.println("\t" + "la $t" + _localctx.reg + ", " + (((Arith_primaryContext)_localctx).ID!=null?((Arith_primaryContext)_localctx).ID.getText():null));
+						System.out.println("\t" + "lw $t" + _localctx.reg + ", " + "0($t" + _localctx.reg + ")");
+						((Arith_primaryContext)_localctx).place =  _localctx.reg; 
+						((Arith_primaryContext)_localctx).nreg =  _localctx.reg+1;
+					
 				}
 				break;
 			case LEFT_PARENTHESES:
@@ -2110,7 +2158,10 @@ public class RoseParser extends Parser {
 				((Arith_primaryContext)_localctx).arith_expression = arith_expression(_localctx.reg);
 				setState(268);
 				match(RIGHT_PARENTHESES);
-				((Arith_primaryContext)_localctx).place =  ((Arith_primaryContext)_localctx).arith_expression.place; ((Arith_primaryContext)_localctx).nreg =  ((Arith_primaryContext)_localctx).arith_expression.nreg;
+
+						((Arith_primaryContext)_localctx).place =  ((Arith_primaryContext)_localctx).arith_expression.place; 
+						((Arith_primaryContext)_localctx).nreg =  ((Arith_primaryContext)_localctx).arith_expression.nreg;
+					
 				}
 				break;
 			default:
